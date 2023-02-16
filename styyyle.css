@@ -5,8 +5,9 @@
 }
 #image{
     background-color: #BBBEC7;
+    background-image: url("/img/back.png");
     width: 50%;
-    
+
 }
 
 .input-container::before {
@@ -34,4 +35,5 @@
     border-radius: 10rem;
     margin-top: 3rem;
 }
+
 
