@@ -9,7 +9,7 @@ CREATE TABLE Client(
    `Email` VARCHAR(100) UNIQUE,
    `Phone` VARCHAR(20) UNIQUE,
    `Password` VARCHAR(100),
-   PRIMARY KEY(`Client Id`)
+   PRIMARY KEY(`ClientId`)
 );
 
 CREATE TABLE Annonce(

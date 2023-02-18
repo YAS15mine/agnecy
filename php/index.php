@@ -18,31 +18,19 @@
               <a class="nav-link" href="index.php">Home</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="signin.php">IN</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="signup.php">UP</a>
+              <a class="nav-link" href="signin.php">Sign In</a>
             </li>
           </ul>
         </div>
-
         <!-- <div>
           <img src="" alt="profile">
           <p>name</p>
         </div> -->
         <div>
-          
-          <a href="signup.php" class="btn sign">Sign Up</a>
           <a href="signin.php" class="btn btn-secondary sign">Sign In</a>
         </div>
-
       </div>
     </nav>
-
-
-
-
-
     <script src="js/script.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
   </body>
