@@ -1,4 +1,4 @@
-<?php
+<!-- <?php
 
 require 'connect.php';//connect to the db with the connect file 
 
@@ -86,4 +86,8 @@ require 'connect.php';//connect to the db with the connect file
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
   </body>
-</html>
+</html> -->
+
+
+
+
