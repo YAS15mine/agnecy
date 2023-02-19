@@ -1,6 +1,7 @@
 document.querySelector(".img-btn").addEventListener("click", function () {
   document.querySelector(".cont").classList.toggle("s-signup");
 });
+
 // ============================ create variables =================================================== //
 const form = document.getElementById("form");
 const firstname = document.getElementById("fname");
@@ -9,15 +10,12 @@ const email = document.getElementById("email");
 const phone = document.getElementById("phone");
 const password1 = document.getElementById("password1");
 const password2 = document.getElementById("password2");
-// ============================ event listner adding ====================================== //
+
 form.addEventListener("submit", (e) => {
   e.preventDefault();
   validateInputs();
 });
-forms.addEventListener("submit", (e) => {
-  e.preventDefault();
-  validateInputss();
-});
+
 // ============================ set Errors function=================================================== //
 const setError = (element, message) => {
   const inputControl = element.parentElement;
@@ -37,8 +35,8 @@ const setSuccess = (element) => {
 };
 //======================= REGEX FORMS =============================//
 let myRegex = /^[a-zA-Z-\s]+$/;
-let phoneRe = /([+])?(212)?0[5-7]\d{8}$/g;
-let emailRe = / ^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g;
+let phoneRe = /^\s*(?:\+?(\d{1,3}))?[-. (]*(\d{3})[-. )]*(\d{3})[-. ]*(\d{4})(?: *x(\d+))?\s*$/;
+let emailRe = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
 let passRe = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[#$@!%&*?])[A-Za-z\d#$@!%&*?]{8,30}$/;
 // ================================== onclick function =============================================== //
 const validateInputs = () => {
@@ -49,6 +47,7 @@ const validateInputs = () => {
   const phoneValue = phone.value.trim();
   const password1Value = password1.value;
   const password2Value = password2.value;
+
   const arr = [];
   //======================= first name validaton ====================//
   if (firstnameValue === "") {
@@ -80,7 +79,7 @@ const validateInputs = () => {
   if (phoneValue === "") {
     setError(phone, "phone number is required , cannot be empty ");
     arr.push(false);
-  } else if (phoneValue.length > 14) {
+  } else if (phoneValue.length > 50) {
     setError(phone, "phone number is too long");
     arr.push(false);
   } else if (phoneRe.test(phoneValue) === false) {
@@ -102,7 +101,7 @@ const validateInputs = () => {
   } else {
     setSuccess(email);
   }
-  //======================= PASSWORD Validation =============================//
+  //======================= group Validation =============================//
   if (password1Value === "") {
     setError(password1, "password is required , cannot be empty ");
     arr.push(false);
@@ -115,7 +114,6 @@ const validateInputs = () => {
   } else {
     setSuccess(password1);
   }
-  //======================= PASSWORD Validation =============================//
 
   if (password2Value === password1Value) {
     if (password2Value === "") {
@@ -136,17 +134,20 @@ const validateInputs = () => {
   } else {
     setSuccess(password2);
   }
-  //======================= PASSWORD Validation =============================//
+
   if (arr.length === 0) {
-    Document.getElementById("form").submit();
+    form.submit();
   }
 };
-
-
 
 const forms = document.getElementById("forms");
 const emails = document.getElementById("emails");
 const passwords = document.getElementById("passwords");
+
+forms.addEventListener("submit", (e) => {
+  e.preventDefault();
+  validateInputss();
+});
 
 const validateInputss = () => {
   // ======================= variables Values  ======================//
@@ -168,18 +169,18 @@ const validateInputss = () => {
     setSuccess(emails);
   }
   //======================= group Validation =============================//
-    if (passwordsValue === "") {
-      setError(passwords, "password is required , cannot be empty ");
-      arr1.push(false);
-    } else if (passwordsValue.length > 50) {
-      setError(passwords, "password is too long");
-      arr1.push(false);
-    } else if (passRe.test(passwordsValue) === false) {
-      setError(passwords, "password is invalid");
-      arr1.push(false);
-    } else {
-      setSuccess(passwords);
-    }
+  if (passwordsValue === "") {
+    setError(passwords, "password is required , cannot be empty ");
+    arr1.push(false);
+  } else if (passwordsValue.length > 50) {
+    setError(passwords, "password is too long");
+    arr1.push(false);
+  } else if (passRe.test(passwordsValue) === false) {
+    setError(passwords, "password is invalid");
+    arr1.push(false);
+  } else {
+    setSuccess(passwords);
+  }
   if (arr1.length === 0) {
     forms.submit();
   }
