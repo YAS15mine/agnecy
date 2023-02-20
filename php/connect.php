@@ -3,7 +3,7 @@
 $servername = "localhost";
 $username = "root"; 
 $password = "";
-$dbname = "homes_agency";
+$dbname = "Homes_Agency";
 
 // create a new PDO instance that represents a connection to a database.
 try {

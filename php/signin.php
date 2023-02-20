@@ -17,11 +17,14 @@
   }
 
   // Get the email and password submitted from the login form
-  $email = $_POST['Email'];
-  $password = $_POST['Password'];
+  $email = isset($_POST['Email']) ? $_POST['Email'] : '';
+  $password = isset($_POST['Password']) ? $_POST['Password'] : ''; 
+  $hashed_password = MD5($password);
 
+  if(!empty($email) && !empty($password)){
   // Query the database for a user with the submitted email and password
-  $sql = "SELECT * FROM `Client` WHERE `Email`='$email' AND `password`='$password'";
+  $sql = "SELECT * FROM `Client` WHERE `Email`='$email' AND `password`='$hashed_password'";
+
   $result = $conn->query($sql);
 
   // Check if the query returned a result
@@ -33,6 +36,7 @@
   } else {
     // Login failed, redirect back to login page with error message
       $error = "Email or Password is invalid";
-      header("location: Account.php?error=$error"); 
+      header("location: Account.php?error=".urlencode($error)); 
 
   }
+}
