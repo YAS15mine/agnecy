@@ -1,88 +1,3 @@
-/* html, body,*{
-  box-sizing: border-box;
-}
-
-.submit{
-  background-color: rgb(120, 155, 155) !important;
-  color: white !important;
-}
-.nav-link, .sign{
-  color: white !important;
-}
-#logo{
-  width: 8%;
-}
-
-
-.input-container {
-  position: relative;
-  margin-bottom: 2rem;
-
-}
-#image{
-  background-color: #BBBEC7;
-  background-image: url("../img/.png");
-  width: 50%;
-}
-
-.input-container::before {
-  content: "";
-  position: absolute;
-  top: 50%;
-  left: 10px;
-  transform: translateY(-50%);
-  width: 20px;
-  height: 20px;
-  background-image: url('../img/profile.png');
-  background-repeat: no-repeat;
-  background-size: contain;
-}
-
-.pass::before{
-  background-image: url('../img/lock.png')!important;
-}
-
-.phone::before{
-  background-image: url('../img/Phone.png')!important;
-}
-
-#input-with-icon {
-  padding: .5rem;
-  padding-left: 40px;
-  border-radius: 10rem;
-  border: 1px #BBBEC7 solid;
-  width: 20rem;
-}
-
-#Sign{
-    border-radius: 10rem;
-    margin-top: 3rem;
-}
-
- */
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 *, *:before, *:after{
   margin: 0;
   padding: 0;
@@ -360,11 +275,10 @@ button{
   -webkit-transform:translate3d(0, 0, 0);
           transform:translate3d(0, 0, 0);
 }
+
 input[type="number"]{
   appearance: textfield; 
 }
-
-
 
 /* ==================== div error  ==================== */
 .input-control.success input {
