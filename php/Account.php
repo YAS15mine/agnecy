@@ -75,7 +75,7 @@ include ("connect.php");
                 <div class="error"></div>
             </label>
             <label class="input-control">
-                <input type="number" name="phone" id="phone" placeholder="Phone Number">
+                <input type="phone" name="phone" id="phone" placeholder="Phone Number">
                 <div class="error"></div>
             </label>
             <label class="input-control">

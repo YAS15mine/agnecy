@@ -19,6 +19,7 @@ CREATE TABLE Annonce(
    `PublishDate` DATE DEFAULT CURDATE(),
    `LastModified` DATE,
    `Type` VARCHAR(50),
+   `Category` VARCHAR(50),
    `StreetName` VARCHAR(50),
    `streetNumber` INT,
    `City` VARCHAR(50),

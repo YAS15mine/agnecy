@@ -1,53 +1,99 @@
 <?php 
 require 'connect.php';
 
-if(isset($_POST['filtrer'])){//check if the button exists  in the form 
-
-  $TYPE = $_POST["Type"];
-  $MinPrice = $_POST["MinPrice"];
-  $MaxPrice = $_POST["MaxPrice"];
-  //store the request in a variable 
-  $sql = "SELECT * FROM `announce` WHERE `PRICE` >= $MinPrice AND `PRICE` <= $MaxPrice AND `TYPE` LIKE '$TYPE'";
-  $result = $conn->query($sql);//execute the request
-
-  $FilterResult = $result->fetchAll(PDO::FETCH_ASSOC);//fetch the filtered result as associative 
+// if(isset($_POST['filtrer'])){//check if the button exists  in the form 
 
 
-} else {
+//   $MinPrice = $_POST["MinPrice"];
+//   $MaxPrice = $_POST["MaxPrice"];
+//   //store the request in a variable 
+//   $sql = "SELECT * FROM `announce` WHERE `PRICE` >= $MinPrice AND `PRICE` <= $MaxPrice AND `TYPE` LIKE '$TYPE'";
+//   $result = $conn->query($sql);//execute the request
 
-$pageId ;
-if(isset($_GET['pageId'])){
-  $pageId = $_GET['pageId'];
-} else { 
-  $pageId = 1 ;
+//   $FilterResult = $result->fetchAll(PDO::FETCH_ASSOC);//fetch the filtered result as associative 
 
-}
 
-$endIndex = $pageId * 8 ;
-$StartIndex  = $endIndex - 8 ;
+// } elseif(isset($_POST['Search'])){
 
-$announcesDATA = $conn->query("SELECT * FROM announces Limit 8 OFFSET $StartIndex")->fetchAll(PDO::FETCH_ASSOC);
 
-$sql = 'SELECT * FROM announces ';
+//   $Category = $_POST["Category"];
+//   $Price = $_POST["Price"];
+//   $TYPE = $_POST["Type"];
+//   $City = $_POST["City"];
+//   $Value = $_POST["Value"];
 
-// execute a query
-$annoncesLength = $conn->query($sql)->rowCount();
+
+//   $sql = "SELECT * FROM `annonce` WHERE `City`='$Value' or `Category`='$Value' or `Type`='$Value' or `Price`=$Value;"
+
+
+
+// }
 
 
 
 
-// echo $annoncesLength[0];
 
-$pagesNum = 0;
 
-if(($annoncesLength % 6 ) == 0){
 
-  $pagesNum = $annoncesLength / 8 ;
 
-} else{
-  $pagesNum = ceil($annoncesLength / 8);
-}
-}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// else {
+
+// $pageId ;
+// if(isset($_GET['pageId'])){
+//   $pageId = $_GET['pageId'];
+// } else { 
+//   $pageId = 1 ;
+
+// }
+
+// $endIndex = $pageId * 8 ;
+// $StartIndex  = $endIndex - 8 ;
+
+// $announcesDATA = $conn->query("SELECT * FROM announces Limit 8 OFFSET $StartIndex")->fetchAll(PDO::FETCH_ASSOC);
+
+// $sql = 'SELECT * FROM announces ';
+
+// // execute a query
+// $annoncesLength = $conn->query($sql)->rowCount();
+
+
+
+
+// // echo $annoncesLength[0];
+
+// $pagesNum = 0;
+
+// if(($annoncesLength % 6 ) == 0){
+
+//   $pagesNum = $annoncesLength / 8 ;
+
+// } else{
+//   $pagesNum = ceil($annoncesLength / 8);
+// }
+// }
 
 
 
@@ -133,6 +179,9 @@ if(($annoncesLength % 6 ) == 0){
           <p>name</p>
         </div> -->
         <div>
+            <form action="logout.php" method="post">
+              <button type="submit" name="logout">Logout</button>
+            </form>
           <a href="Account.php" class="btn btn-secondary sign">Sign In</a>
         </div>
       </div>
