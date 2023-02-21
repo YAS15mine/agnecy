@@ -1,19 +1,19 @@
 <?php 
 require 'connect.php';
 
-if(isset($_POST['valueSearch'])){
+if(isset($_POST['filtrer'])){//check if the button exists  in the form 
 
-  $type = $_POST['type'];
-  $priceMax = $_POST['priceMax'];
-  $priceMin = $_POST['priceMin'];
-  
-  $sql= "SELECT * FROM `announces` WHERE `price` >= $priceMin   AND `price` <= $priceMax  AND `type`  = '$type' ";
-  
-  $statement = $conn->query($sql);
-  
-  $searchResult = $statement->fetchAll(PDO::FETCH_ASSOC);
-  
-  } else {
+  $TYPE = $_POST["Type"];
+  $MinPrice = $_POST["MinPrice"];
+  $MaxPrice = $_POST["MaxPrice"];
+  //store the request in a variable 
+  $sql = "SELECT * FROM `announce` WHERE `PRICE` >= $MinPrice AND `PRICE` <= $MaxPrice AND `TYPE` LIKE '$TYPE'";
+  $result = $conn->query($sql);//execute the request
+
+  $FilterResult = $result->fetchAll(PDO::FETCH_ASSOC);//fetch the filtered result as associative 
+
+
+} else {
 
 $pageId ;
 if(isset($_GET['pageId'])){
@@ -48,6 +48,46 @@ if(($annoncesLength % 6 ) == 0){
   $pagesNum = ceil($annoncesLength / 8);
 }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ?>
 
 

@@ -7,7 +7,7 @@ CREATE TABLE Client(
    `FirstName` VARCHAR(50),
    `LastName` VARCHAR(50),
    `Email` VARCHAR(100) UNIQUE,
-   `Phone` VARCHAR(20) UNIQUE,
+   `Phone` INT UNIQUE,
    `Password` VARCHAR(100),
    PRIMARY KEY(`ClientId`)
 );
@@ -15,16 +15,16 @@ CREATE TABLE Client(
 CREATE TABLE Annonce(
    `AnnounceId` INT NOT NULL AUTO_INCREMENT,
    `Tittle` VARCHAR(100),
-   `Price` VARCHAR(50) CHECK ("Price">0),
-   `PublishDate` VARCHAR(50) DEFAULT CURDATE(),
-   `LastModified`VARCHAR(50),
+   `Price` INT ,
+   `PublishDate` DATE DEFAULT CURDATE(),
+   `LastModified` DATE,
    `Type` VARCHAR(50),
    `StreetName` VARCHAR(50),
-   `streetNumber` VARCHAR(50),
+   `streetNumber` INT,
    `City` VARCHAR(50),
    `Country` VARCHAR(50),
-   `ZipCode` VARCHAR(50),
-   `ClientId` INT,
+   `ZipCode` INT,
+   `ClientId` INT NOT NULL,
    PRIMARY KEY(`AnnounceId`),
    FOREIGN KEY(`ClientId`) REFERENCES Client(`ClientId`)
 );
