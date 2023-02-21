@@ -74,7 +74,7 @@ include ("connect.php");
                 <input type="password" id="password2" placeholder="Confirm Password">
                 <div class="error"></div>
             </label>
-            <button type="submit" class="submit">Sign Up Now</button>
+            <button type="submit" class="submit">Sign Up</button>
         </div>
       </form>
     </div>
