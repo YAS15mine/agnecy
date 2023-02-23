@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css.css">
+    <title>login/signup</title>
+</head>
+<body>
+    <h2></h2>
+<div class="container" id="container">
+	<div class="form-container sign-up-container">
+		<form action="#">
+			<h1>Create Account</h1>
+			<span>or use your email for registration</span>
+			 <label class="input-control">
+                <input type="text" name="fname" id="fname" placeholder="First Name">
+                <div class="error"></div>
+            </label>
+            <label class="input-control">
+                <input type="text" name="lname" id="lname" placeholder="Last Name">
+                <div class="error"></div>
+            </label>
+            <label class="input-control">
+                <input type="email" name="email" id="email"  placeholder="Email">
+                <div class="error"></div>
+            </label>
+            <label class="input-control">
+                <input type="phone" name="phone" id="phone" placeholder="Phone Number">
+                <div class="error"></div>
+            </label>
+            <label class="input-control">
+                <input type="password" name="password" id="password1" placeholder="Password">
+                <div class="error"></div>
+            </label>
+            <label class="input-control">
+                <input type="password" id="password2" placeholder="Confirm Password">
+                <div class="error"></div>
+            </label>
+            <button type="submit" class="submit">Sign Up</button>
+		</form>
+	</div>
+	<div class="form-container sign-in-container">
+		<form action="#">
+			<h1>Sign in</h1>
+			<span>or use your account</span>
+			<input type="email" placeholder="Email" />
+			<input type="password" placeholder="Password" />
+			<button>Sign In</button>
+		</form>
+	</div>
+	<div class="overlay-container">
+		<div class="overlay">
+			<div class="overlay-panel overlay-left">
+				<h1>Welcome Back!</h1>
+				<p>To keep connected with us please login with your personal info</p>
+				<button class="ghost" id="signIn">Sign In</button>
+			</div>
+			<div class="overlay-panel overlay-right">
+				<h1>Hello, Friend!</h1>
+				<p>Enter your personal details and start journey with us</p>
+				<button class="ghost" id="signUp">Sign Up</button>
+			</div>
+		</div>
+	</div>
+</div>
+    <script src="scr.js"></script>
+</body>
+</html>

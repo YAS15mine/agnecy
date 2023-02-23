@@ -1,7 +1,6 @@
 document.querySelector(".img-btn").addEventListener("click", function () {
   document.querySelector(".cont").classList.toggle("s-signup");
 });
-
 // ============================ create variables =================================================== //
 const form = document.getElementById("form");
 const firstname = document.getElementById("fname");

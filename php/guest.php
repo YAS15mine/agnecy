@@ -1,59 +1,82 @@
 <?php
-// retrieve the form inputs using $_POST
-$city = $_POST['city'];
-$type = $_POST['type'];
-$category = $_POST['category'];
-$max_price = $_POST['max_Price'];
-$min_price = $_POST['min_Price'];
-$date = $_POST['Date'];
+require 'connect.php';// require the connect file that connects to the db
 
-// build the SQL query based on the user inputs
-$sql = "SELECT * FROM my_table WHERE 1=1"; // 1=1 is used to ensure that the WHERE clause will always be valid
 
-if (!empty($city)) {
-  $sql .= " AND city = '$city'";
+if(isset($_POST['searchbtn'])){
+    // retrieve the form inputs using $_POST and store them in the $queryParams array
+if(!empty($_POST['city'])) {
+    $queryParams[] = "City = '{$_POST['city']}'";
 }
 
-if (!empty($type)) {
-  $sql .= " AND type = '$type'";
+if(!empty($_POST['type'])) {
+    $queryParams[] = "Type = '{$_POST['type']}'";
 }
 
-if (!empty($category)) {
-  $sql .= " AND category = '$category'";
+if(!empty($_POST['category'])) {
+    $queryParams[] = "Category = '{$_POST['category']}'";
 }
 
-if (!empty($max_price)) {
-  $sql .= " AND price <= $max_price";
+if(!empty($_POST['max_Price'])) {
+    $queryParams[] = "Price <= {$_POST['max_Price']}";
 }
 
-if (!empty($min_price)) {
-  $sql .= " AND price >= $min_price";
+if(!empty($_POST['min_Price'])) {
+    $queryParams[] = "Price >= {$_POST['min_Price']}";
 }
 
-if (!empty($date)) {
-  $sql .= " AND date = '$date'";
+if(!empty($_POST['Date'])) {
+    $queryParams[] = "PublishDate = '{$_POST['Date']}'";
 }
+
+// construct the SQL query
+$sql = "SELECT * FROM annonce WHERE " . implode(" AND ", $queryParams);
 
 // execute the query and display the results
-$result = mysqli_query($conn, $sql);
-while ($row = mysqli_fetch_assoc($result)) {
-  // display the results in a table or any other format you want
-  // ...
-}
-?>
+$result = $conn->query($sql);
+$FilterResult = $result->fetchAll(PDO::FETCH_ASSOC);
+echo $sql;
 
+}else {
+
+$pageId ;
+if(isset($_GET['pageId'])){
+  $pageId = $_GET['pageId'];
+} else { 
+  $pageId = 1 ;
+}
+
+$endIndex = $pageId * 8;
+$StartIndex  = $endIndex - 8 ;
+
+$announcesDATA = $conn->query("SELECT * FROM annonce Limit 8 OFFSET $StartIndex")->fetchAll(PDO::FETCH_ASSOC);
+
+$sql = 'SELECT * FROM annonce';
+
+// execute a query
+$annoncesLength = $conn->query($sql)->rowCount();
+
+// echo $annoncesLength[0];
+
+$pagesNum = 0;
+
+if(($annoncesLength % 6 ) == 0){
+
+  $pagesNum = $annoncesLength / 8 ;
+
+} else{
+  $pagesNum = ceil($annoncesLength / 8);
+}
+}
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
-        crossorigin="anonymous"></script>
-
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
     <!-- font  -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -62,7 +85,6 @@ while ($row = mysqli_fetch_assoc($result)) {
     <script src="https://kit.fontawesome.com/c0019a3c9b.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="../css/home.css">
     <title>Document</title>
-
 </head>
 
 <body>
@@ -87,13 +109,6 @@ while ($row = mysqli_fetch_assoc($result)) {
                     </li>
                 </ul>
 
-                <!-- Button SIGN UP -->
-                <!-- <button type="button" class="btn nav-link px-3 me-2 text-white d-flex align-items-center gap-1 sign-in"
-                    data-toggle="modal" data-target="#addAnnonceModal">
-                    <span>Sign Up</span>
-                    <i class="fa-solid fa-user-plus"></i>
-                </button> -->
-                <!-- button LOG IN -->
                 <div class="d-flex align-items-center">
                     <a type="button" href="Account.php" class="btn nav-link px-3 me-2 text-white d-flex align-items-center gap-1 sign-in"
                         data-toggle="modal" data-target="#btn-signin">
@@ -106,21 +121,17 @@ while ($row = mysqli_fetch_assoc($result)) {
         </div>
         <!-- Container wrapper -->
     </nav>
-
-   
         <!-- ========== div serch by city and type and categories and price ==========-->
         <div class=" vh-100 w-100 bg-img" >
             <div style="padding-top: 10em;" class="d-flex justify-content-center align-items-center">
                 <img src="../img/logoSite.png" class="d-block"  alt="MDB Logo" loading="lazy" />
             </div>
-            <div class="wrapper">
+            
                 <div class="form-filter d-flex "  >
-                    <form action="search.php" method="POST"
-                        class="w-100 d-flex justify-content-center align-items-center gap-1">
-                        <label for="" class="d-flex gap-1">
-                            <span>city:</span>
-                            <select class="form-select form-select-sm" aria-label=".form-select-sm example" name="type">
-                            <option  disabled selected><-- choose an option --></option>
+                    <form action="<?php echo $_SERVER['PHP_SELF'] ?>" method="post" class="w-100 d-flex justify-content-center align-items-center flex-wrap gap-1">
+                         <label for="" class="d-flex gap-1">
+                            <select class="form-select form-select-sm" aria-label=".form-select-sm example" name="city">
+                                <option  disabled selected>/-- choose City --/</option>
                                 <option value="Tanger">Tanger</option>
                                 <option value="Rabat">Rabat</option>
                                 <option value="Marakech">Marakech</option>
@@ -128,9 +139,8 @@ while ($row = mysqli_fetch_assoc($result)) {
                             </select>
                         </label>
                         <label for="" class="d-flex ml-1 gap-1">
-                            <span>type:</span>
                             <select class="form-select form-select-sm" aria-label=".form-select-sm example" name="type">
-                            <option  disabled selected><-- choose an option --></option>
+                            <option  disabled selected>/-- choose Type --/</option>
                                 <option value="apartment">apartment</option>
                                 <option value="House">House</option>
                                 <option value="Villa">Villa</option>
@@ -139,66 +149,101 @@ while ($row = mysqli_fetch_assoc($result)) {
                             </select>
                         </label>
                         <label class="d-flex ml-1 gap-1">
-                            <span>categories:</span>
-                            <select class="form-select form-select-sm" aria-label=".form-select-sm example" name="type">
-                            <option  disabled selected><-- choose an option --></option>
-                                <option value="Rent">For Rent</option>
-                                <option value="Sale">For Sale</option>
+                            <select class="form-select form-select-sm" aria-label=".form-select-sm example" name="category">
+                            <option  disabled selected>/-- choose Category --/</option>
+                                <option value="Rent">Rent</option>
+                                <option value="Sale">Sale</option>
                             </select>
-                        </label>
+                        </label> 
+                         
                         <label class="d-flex ml-1 gap-1" id="max-price">
-                            <span>Max Price: </span>
-                            <input name="max_Price" type="number" min="0" />
+                            <input name="max_Price" type="number" min="0" placeholder="Max Price"/>
                         </label>
                         <label class="d-flex ml-1 gap-1" id="min-Price">
-                            <span>Min Price:</span>
-                            <input name="min_Price" type="number" min="0" />
+                            <input name="min_Price" type="number" min="0" placeholder="Min Price"/>
                         </label>
                         <label class="d-flex ml-1 gap-1" id="min-Price">
-                            <span>Date</span>
-                            <input name="Date" type="date"/>
+                            <input name="Date" type="date" placeholder="Date"/>
                         </label>
-                        <button name="searchbtn" type="submit" class="btn btn-warning ml-4" >
-                            Search
-                        </button>
+                        <button name="searchbtn" type="submit" class="btn btn-warning ml-4" >Search</button>
                     </form>
                 </div>
-            </div>
+            
         </div>
 </header>
-   
 
-
-<main>
-  
-
-    <div class="container">
-        <div class="row">
-            <div class="col-md-4">
-                <div class="content"> <a href="#">
-                        <div class="content-overlay">
-                        </div> <img class="content-image" src="/img/img.jpg">
-                        <div class="content-details fadeIn-bottom">
-                            <h3 class="content-title">Geysers Valley Hotel</h3>
-                            <p class="content-text"><i class="fa fa-map-marker"></i> Russia</p>
+<!-- ================================================== cards affiche ================================================================== -->
+    <section class="container">
+        <h2>Listings</h2>
+       <div class="cards">
+        <?php
+        if ($_SERVER["REQUEST_METHOD"] == "GET") {//check if the method is get
+          foreach($announcesDATA as $key => $val) { //loops in the table of annonce and display the in cards
+            ?>
+                <div class="card">
+                    <div class="content"> 
+                        <a href="details.php?AnnounceId=<?php echo $val['AnnounceId'];?>">
+                            <div class="content-overlay">
+                            </div> 
+                            <img class="content-image" src="../img/img.jpg">
+                            <div class="content-details fadeIn-bottom">
+                                <h3 class="content-title"><?php echo $val['Tittle'];?></h3>
+                                <p class="content-text"><i class="fa fa-map-marker"></i><?php echo $val['Country'];?>,<?php echo $val['City'];?></p>
+                            </div>
+                        </a> 
+                    </div>
+                </div>
+            <?php
+            }
+          } else if ($_SERVER["REQUEST_METHOD"] == "POST") { //check if the method is post
+              foreach($FilterResult as $key => $val) { //loops in the table of annonce with filterd data and display the in cards 
+                      ?>
+                        <div class="card    ">
+                            <div class="content"> 
+                                <a href="details.php?AnnounceId=<?php echo $val['AnnounceId'];?>">
+                                    <div class="content-overlay">
+                                    </div> 
+                                    <img class="content-image" src="../img/img.jpg">
+                                    <div class="content-details fadeIn-bottom">
+                                        <h3 class="content-title"><?php echo $val['Tittle'];?></h3>
+                                        <p class="content-text"><i class="fa fa-map-marker"></i> Russia</p>
+                                    </div>
+                                </a> 
+                            </div>
                         </div>
-                    </a> </div>
-            </div>
-
-
-         <footer>
-
-            
-            
-         </footer>
+                      <?php
+                    }
+                  }
+              ?>
+      </div>
+    </section>
 
 
 
 
-</main>
-     
 
 
+
+    <?php if($_SERVER["REQUEST_METHOD"] == "GET"){?>
+  <nav class="mt-4 mb-4 " aria-label="Page navigation example">
+    <ul class=" flex-wrap pagination justify-content-center">
+      <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+      <?php for ($i=1; $i <= $pagesNum; $i++) { ?>
+      <li class="page-item"><a class="page-link" href="<?php echo "user.php?pageId=".$i?>"><?php echo $i ;?></a></li>
+      <?php }?>
+      <li class="page-item"><a class="page-link" href="">Next</a></li>
+    </ul>
+  </nav>
+  <?php
+}
+?>
+  </div>
+
+
+
+
+    <footer>
+        hhhh
+    </footer>
 </body>
-
 </html>

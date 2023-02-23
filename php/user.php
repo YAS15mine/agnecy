@@ -1,9 +1,5 @@
 <?php
 require 'connect.php';// require the connect file that connects to the db
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
-
 
 
 if(isset($_POST['searchbtn'])){
@@ -54,7 +50,7 @@ $StartIndex  = $endIndex - 8 ;
 
 $announcesDATA = $conn->query("SELECT * FROM annonce Limit 8 OFFSET $StartIndex")->fetchAll(PDO::FETCH_ASSOC);
 
-$sql = 'SELECT * FROM annonce ';
+$sql = 'SELECT * FROM annonce';
 
 // execute a query
 $annoncesLength = $conn->query($sql)->rowCount();
@@ -186,7 +182,7 @@ if(($annoncesLength % 6 ) == 0){
             ?>
                 <div class="card">
                     <div class="content"> 
-                        <a href="info.php?id=<?php echo $val['AnnounceId'];?>">
+                        <a href="details.php?AnnounceId=<?php echo $val['AnnounceId'];?>">
                             <div class="content-overlay">
                             </div> 
                             <img class="content-image" src="../img/img.jpg">
@@ -204,7 +200,7 @@ if(($annoncesLength % 6 ) == 0){
                       ?>
                         <div class="card    ">
                             <div class="content"> 
-                                <a href="info.php?id=<?php echo $val['AnnounceId'];?>">
+                                <a href="details.php?AnnounceId=<?php echo $val['AnnounceId'];?>">
                                     <div class="content-overlay">
                                     </div> 
                                     <img class="content-image" src="../img/img.jpg">

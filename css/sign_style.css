@@ -276,6 +276,16 @@ button{
           transform:translate3d(0, 0, 0);
 }
 
+
+
+
+
+
+
+
+
+
+
 input[type="number"]{
   appearance: textfield; 
 }

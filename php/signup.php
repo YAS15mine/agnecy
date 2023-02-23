@@ -8,12 +8,26 @@ include "connect.php"; // ====== connect to the database
    $Phone =$_GET["phone"];
    $Password = $_GET["password"];
    $hashed_password = MD5($Password);
+   echo $hashed_password;
+   echo "<br>";
+   echo $Password;
+   echo "<br>";
+   echo $Phone;
+   echo "<br>";
+   echo $Email;
+   echo "<br>";
+   echo $Lname;
+   echo "<br>";
+   echo $Fname;
+
+   
+
 
 // if the this file heve been called the code above will work
 if ( true ){
 
    // send a request to the db and insert into the values of inputs 
-   $sql = "INSERT INTO `client` 
+   $sql = "INSERT INTO `Client` 
    (`FirstName`, `LastName`, `Email`, `Phone`, `Password`)
    VALUES 
    ('$Fname' , '$Lname', '$Email', '$Phone', '$hashed_password')";

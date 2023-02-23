@@ -7,8 +7,8 @@ CREATE TABLE Client(
    `FirstName` VARCHAR(50),
    `LastName` VARCHAR(50),
    `Email` VARCHAR(100) UNIQUE,
-   `Phone` INT UNIQUE,
-   `Password` VARCHAR(100),
+   `Phone` VARCHAR(100),
+   `Password` VARCHAR(1000),
    PRIMARY KEY(`ClientId`)
 );
 

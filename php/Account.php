@@ -47,7 +47,7 @@ include ("connect.php");
         </div>
       </div>
       <!-- ================= Sign Up ================== -->
-      <form action="SignUp.php" method="get" id="form">
+      <form action="signup.php" method="get" id="form">
         <div class="form sign-up">
             <h2>Sign Up</h2>
             <label class="input-control">
