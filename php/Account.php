@@ -32,15 +32,19 @@ include ("connect.php");
     </form>
     <!-- ================= image ================== -->
     <div class="sub-cont">
+      
       <div class="img">
         <div class="img-text m-up">
           <h2>New here?</h2>
-          <p>Sign up and discover great amount of new opportunities!</p>
+          <p>Sign up and discover great amount of new opportunities!</p><br>
+          <a class="guest" href="user.php">Enter As Guest</a>
         </div>
         <div class="img-text m-in">
           <h2>One of us?</h2>
-          <p>If you already has an account, just sign in. We've missed you!</p>
+          <p>If you already has an account, just sign in. We've missed you!</p><br>
+          <a class="guest" href="user.php">Enter As Guest</a>
         </div>
+        
         <div class="img-btn">
           <span class="m-up">Sign Up</span>
           <span class="m-in">Sign In</span>
