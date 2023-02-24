@@ -1,7 +1,5 @@
 <?php 
-
 require "connect.php";//connect to the db
-
 if(isset($_GET["AnnounceId"])){//check the id
   $AnnounceId = $_GET["AnnounceId"];
   //store the request for annouce table and run it
@@ -18,14 +16,10 @@ if(isset($_GET["AnnounceId"])){//check the id
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="../css/style_detail.css">
     <link rel="stylesheet" href="../css/home.css">
-
-    <!-- font  -->
   </head>
   <body>
         <nav class="navbar navbar-expand-lg fixed-top" id="nav">
-            <!-- Collapsible wrapper -->
             <div class="collapse navbar-collapse" id="navbarButtonsExample">
-                <!-- Left links -->
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item mr-4">
                         <a class="nav-link text-white" href="user.php">Home</a>
@@ -41,7 +35,6 @@ if(isset($_GET["AnnounceId"])){//check the id
     </nav>
     <div class = "card-wrapper">
       <div class = "card">
-        <!-- card left -->
         <div class = "product-imgs">
           <div class = "img-display">
             <div class = "img-showcase">
@@ -74,7 +67,6 @@ if(isset($_GET["AnnounceId"])){//check the id
             </div>
           </div>
         </div>
-        <!-- card right -->
         <div class = "product-content">
           <h2 class = "product-title"><?php if(isset($_GET["AnnounceId"])){echo $array["Tittle"];} ?></h2>
           <a href = "#" class = "product-link"><?php if(isset($_GET["AnnounceId"])){echo $array["Category"];} ?></a>
@@ -83,9 +75,9 @@ if(isset($_GET["AnnounceId"])){//check the id
           </div>
           <div class = "product-detail">
             <h2>Description :</h2>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Illo eveniet veniam tempora fuga tenetur placeat sapiente architecto illum soluta consequuntur, aspernatur quidem at sequi ipsa!</p>
+            <p><?php if(isset($_GET["AnnounceId"])){echo $array["Descripton"];} ?></p>
             <ul>
-              <li>Size : <span><?php if(isset($_GET["AnnounceId"])){echo $array[""];} ?> m2</span></li>
+              <li>Size : <span><?php if(isset($_GET["AnnounceId"])){echo $array["Size"];} ?> m2</span></li>
               <li>Category: <span><?php if(isset($_GET["AnnounceId"])){echo $array["Category"];} ?></span></li>
               <li>Location : <span><?php if(isset($_GET["AnnounceId"])){echo $array["Country"];} ?>,<?php if(isset($_GET["AnnounceId"])){echo $array["City"];} ?></span></li>
               <li>Publication Date: <span><?php if(isset($_GET["AnnounceId"])){echo $array["PublishDate"];} ?></span></li>

@@ -171,7 +171,6 @@ if(($annoncesLength % 6 ) == 0){
             
         </div>
 </header>
-
 <!-- ================================================== cards affiche ================================================================== -->
     <section class="container">
         <h2>Listings</h2>
@@ -196,7 +195,7 @@ if(($annoncesLength % 6 ) == 0){
             <?php
             }
           } else if ($_SERVER["REQUEST_METHOD"] == "POST") { //check if the method is post
-              foreach($FilterResult as $key => $val) { //loops in the table of annonce with filterd data and display the in cards 
+                foreach($FilterResult as $key => $val) { //loops in the table of annonce with filterd data and display the in cards 
                       ?>
                         <div class="card    ">
                             <div class="content"> 
@@ -211,39 +210,20 @@ if(($annoncesLength % 6 ) == 0){
                                 </a> 
                             </div>
                         </div>
-                      <?php
-                    }
-                  }
-              ?>
+                <?php } } ?>
       </div>
     </section>
-
-
-
-
-
-
-
     <?php if($_SERVER["REQUEST_METHOD"] == "GET"){?>
-  <nav class="mt-4 mb-4 " aria-label="Page navigation example">
-    <ul class=" flex-wrap pagination justify-content-center">
-      <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-      <?php for ($i=1; $i <= $pagesNum; $i++) { ?>
-      <li class="page-item"><a class="page-link" href="<?php echo "user.php?pageId=".$i?>"><?php echo $i ;?></a></li>
-      <?php }?>
-      <li class="page-item"><a class="page-link" href="">Next</a></li>
-    </ul>
-  </nav>
-  <?php
-}
-?>
+        <nav class="mt-4 mb-4 " aria-label="Page navigation example">
+          <ul class=" flex-wrap pagination justify-content-center">
+            <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+            <?php for ($i=1; $i <= $pagesNum; $i++) { ?>
+            <li class="page-item"><a class="page-link" href="<?php echo "user.php?pageId=".$i?>"><?php echo $i ;?></a></li>
+            <?php } ?>
+            <li class="page-item"><a class="page-link" href="">Next</a></li>
+          </ul>
+        </nav>
+    <?php } ?>
   </div>
-
-
-
-
-    <footer>
-        hhhh
-    </footer>
 </body>
 </html>

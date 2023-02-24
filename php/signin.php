@@ -32,7 +32,7 @@
     // Login successful, set session variables and redirect to home page
     $row = $result->fetch_assoc();
     $_SESSION['user_email'] = $row['Email'];
-    header("Location: index.php");
+    header("Location: user.php");
   } else {
     // Login failed, redirect back to login page with error message
       $error = "Email or Password is invalid";

@@ -105,14 +105,12 @@ if(($annoncesLength % 6 ) == 0){
                 <!-- Left links -->
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item mr-4">
-                        <a class="nav-link text-white" href="home.php">Home</a>
+                        <a class="nav-link text-white" href="guest.php">Home</a>
                     </li>
                 </ul>
 
                 <div class="d-flex align-items-center">
-                    <a type="button" href="Account.php" class="btn nav-link px-3 me-2 text-white d-flex align-items-center gap-1 sign-in"
-                        data-toggle="modal" data-target="#btn-signin">
-                        Log In
+                    <a type="button" href="Account.php" class="btn nav-link px-3 me-2 text-white d-flex align-items-center gap-1 sign-in" data-toggle="modal" data-target="#btn-signin">
                         <i class="fa-solid fa-user"></i>
                     </a>
                 </div>
