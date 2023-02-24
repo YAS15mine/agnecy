@@ -9,15 +9,9 @@ include "connect.php"; // ====== connect to the database
    $Phone =$_GET["phone"];
    $Password = $_GET["password"];
    $hashed_password = MD5($Password);
-   
    $query = "SELECT `Email`,`Phone` FROM `Client` WHERE `Email`='$Email'  OR `Phone`='$Phone'";
-
-
    //retrieve a single row from the result set of the query and store it in the variable "$Result"
    $Resultq = $conn->query($query)->fetch();
-
-   print_r($Resultq);
-   echo "<br>";
 
 if(empty($Resultq)){
 
@@ -41,7 +35,6 @@ if(empty($Resultq)){
          $error_email = "Error Has Occured";
          header("location: Account.php?error_email=".urlencode($error_email)); 
    }
-   
 }else{
    // Login failed, redirect back to login page with error message
    $error_email = "user already exist";

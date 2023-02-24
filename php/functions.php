@@ -7,7 +7,7 @@ function authenticated(){
 }
 
 function not_auth_redirect(){
-	if(!auth()) {
+	if(!authenticated()) {
   header("location:Account.php");
 	}
 }

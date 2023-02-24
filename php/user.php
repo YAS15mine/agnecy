@@ -1,10 +1,4 @@
 <?php
-// require 'functions.php';// require the connect file that connects to the db
-// require 'connect.php';// require the connect file that connects to the db
-
-
-
-
 session_start();
 require 'functions.php';
 
@@ -47,11 +41,11 @@ $sql = "SELECT * FROM annonce WHERE " . implode(" AND ", $queryParams);
 // execute the query and display the results
 $result = $conn->query($sql);
 $FilterResult = $result->fetchAll(PDO::FETCH_ASSOC);
-echo $sql;
 
 }else {
 
 $pageId ;
+
 if(isset($_GET['pageId'])){
   $pageId = $_GET['pageId'];
 } else { 
@@ -72,7 +66,7 @@ $annoncesLength = $conn->query($sql)->rowCount();
 
 $pagesNum = 0;
 
-if(($annoncesLength % 6 ) == 0){
+if(($annoncesLength % 8 ) == 0){
 
   $pagesNum = $annoncesLength / 8 ;
 

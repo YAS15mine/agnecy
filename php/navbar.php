@@ -33,6 +33,7 @@
                         <a class="nav-link text-white" href="guest.php">Home</a>
                     </li>
                 </ul>
+                
     <?php if(!authenticated()){ ?>
     <a href='Account.php' class="btn btn-outline-warning p-2 m-2" > Sign Up </a>
     <a href='Account.php' class="btn btn-warning p-2 m-2"> Log In </a>

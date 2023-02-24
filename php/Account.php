@@ -14,7 +14,6 @@ include ("connect.php");
   <div class="cont">
     <!-- ================= sign In ================== -->
     <form action="signin.php" method="POST" id="forms">
-
         <div class="form sign-in">
             <h2>Sign In</h2>
             <label class="input-control">
@@ -44,7 +43,6 @@ include ("connect.php");
           <p>If you already has an account, just sign in. We've missed you!</p><br>
           <a class="guest" href="user.php">Enter As Guest</a>
         </div>
-        
         <div class="img-btn">
           <span class="m-up">Sign Up</span>
           <span class="m-in">Sign In</span>
