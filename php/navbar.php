@@ -34,7 +34,8 @@
                     </li>
                 </ul>
     <?php if(!authenticated()){ ?>
-    <a href='Account.php' class="btn btn-warning p-2" >Se connecter</a>
+    <a href='Account.php' class="btn btn-outline-warning p-2 m-2" > Sign Up </a>
+    <a href='Account.php' class="btn btn-warning p-2 m-2"> Log In </a>
     <?php  
     } else { 
     ?>

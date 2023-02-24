@@ -67,7 +67,7 @@ include ("connect.php");
                 <div class="error"></div>
             </label>
             <label class="input-control">
-                <input type="phone" name="phone" id="phone" placeholder="Phone Number">
+                <input type="text" name="phone" id="phone" placeholder="Phone Number">
                 <div class="error"></div>
             </label>
             <label class="input-control">
@@ -76,7 +76,7 @@ include ("connect.php");
             </label>
             <label class="input-control">
                 <input type="password" id="password2" placeholder="Confirm Password">
-                <div class="error"></div>
+                <div class="error"><?php if(isset($_GET['error_email'])) { echo $_GET['error_email']; } ?></div>
             </label>
             <button type="submit" class="submit">Sign Up</button>
         </div>
