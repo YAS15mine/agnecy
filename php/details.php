@@ -1,5 +1,9 @@
 <?php 
 require "connect.php";//connect to the db
+require "functions.php";
+require "navbar.php";
+
+
 if(isset($_GET["AnnounceId"])){//check the id
   $AnnounceId = $_GET["AnnounceId"];
   //store the request for annouce table and run it
@@ -7,17 +11,7 @@ if(isset($_GET["AnnounceId"])){//check the id
   $array = $query->fetch(PDO::FETCH_ASSOC);
 } 
 ?>
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Infos</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="../css/style_detail.css">
-    <link rel="stylesheet" href="../css/home.css">
-  </head>
-  <body>
+<body>
     <div class = "card-wrapper">
       <div class = "card">
         <div class = "product-imgs">

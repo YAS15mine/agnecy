@@ -256,7 +256,7 @@ CREATE TABLE image_d_annonce (
 INSERT INTO
   `image_d_annonce` (
     `image_id`,
-    `primary_or_secondary`,
+    `primary_or_secondary`, 
     `image_path`,
     `ad_id`
   )
