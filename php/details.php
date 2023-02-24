@@ -18,21 +18,6 @@ if(isset($_GET["AnnounceId"])){//check the id
     <link rel="stylesheet" href="../css/home.css">
   </head>
   <body>
-        <nav class="navbar navbar-expand-lg fixed-top" id="nav">
-            <div class="collapse navbar-collapse" id="navbarButtonsExample">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item mr-4">
-                        <a class="nav-link text-white" href="user.php">Home</a>
-                    </li>
-                </ul>
-                <div class="d-flex">
-                <a type="button" href="Account.php" class="btn nav-link px-3 me-2 text-white d-flex align-items-center gap-1 sign-in" data-toggle="modal" data-target="#btn-signin">
-                login  
-                </a>
-                </div>
-            </div>
-        </div>
-    </nav>
     <div class = "card-wrapper">
       <div class = "card">
         <div class = "product-imgs">

@@ -1,0 +1,20 @@
+
+<?php
+function authenticated(){
+	if(isset($_SESSION['user_email'])){
+		return true ;
+	}
+}
+
+function not_auth_redirect(){
+	if(!auth()) {
+  header("location:Account.php");
+	}
+}
+
+
+function auth_redirect(){
+	if(auth()) {
+  header("location:profile.php");
+	}
+}

@@ -1,5 +1,18 @@
 <?php
-require 'connect.php';// require the connect file that connects to the db
+// require 'functions.php';// require the connect file that connects to the db
+// require 'connect.php';// require the connect file that connects to the db
+
+
+
+
+session_start();
+require 'functions.php';
+
+require 'connect.php';
+
+require 'navbar.php';
+
+
 
 
 if(isset($_POST['searchbtn'])){
@@ -69,56 +82,7 @@ if(($annoncesLength % 6 ) == 0){
 }
 
 ?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
-    <!-- font  -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Changa:wght@200;400;500;700&display=swap" rel="stylesheet">
-    <!-- icon -->
-    <script src="https://kit.fontawesome.com/c0019a3c9b.js" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="../css/home.css">
-    <title>Document</title>
-</head>
 
-<body>
-
-
-    <header>
-    <nav class="navbar navbar-expand-lg fixed-top" id="nav">
-
-            <!-- Toggle button -->
-            <button class="navbar-toggler" type="button" data-mdb-toggle="collapse"
-                data-mdb-target="#navbarButtonsExample" aria-controls="navbarButtonsExample" aria-expanded="false"
-                aria-label="Toggle navigation">
-                <i class="fas fa-bars"></i>
-            </button>
-
-            <!-- Collapsible wrapper -->
-            <div class="collapse navbar-collapse" id="navbarButtonsExample">
-                <!-- Left links -->
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item mr-4">
-                        <a class="nav-link text-white" href="guest.php">Home</a>
-                    </li>
-                </ul>
-
-                <div class="d-flex align-items-center">
-                    <a type="button" href="Account.php" class="btn nav-link px-3 me-2 text-white d-flex align-items-center gap-1 sign-in" data-toggle="modal" data-target="#btn-signin">
-                        <i class="fa-solid fa-user"></i>
-                    </a>
-                </div>
-            </div>
-            <!-- Collapsible wrapper -->
-        </div>
-        <!-- Container wrapper -->
-    </nav>
         <!-- ========== div serch by city and type and categories and price ==========-->
         <div class=" vh-100 w-100 bg-img" >
             <div style="padding-top: 10em;" class="d-flex justify-content-center align-items-center">
@@ -169,7 +133,6 @@ if(($annoncesLength % 6 ) == 0){
             
         </div>
 </header>
-
 <!-- ================================================== cards affiche ================================================================== -->
     <section class="container">
         <h2>Listings</h2>
@@ -215,33 +178,17 @@ if(($annoncesLength % 6 ) == 0){
               ?>
       </div>
     </section>
-
-
-
-
-
-
-
-    <?php if($_SERVER["REQUEST_METHOD"] == "GET"){?>
-  <nav class="mt-4 mb-4 " aria-label="Page navigation example">
-    <ul class=" flex-wrap pagination justify-content-center">
-      <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-      <?php for ($i=1; $i <= $pagesNum; $i++) { ?>
-      <li class="page-item"><a class="page-link" href="<?php echo "user.php?pageId=".$i?>"><?php echo $i ;?></a></li>
-      <?php }?>
-      <li class="page-item"><a class="page-link" href="">Next</a></li>
-    </ul>
-  </nav>
-  <?php
-}
-?>
+        <?php if($_SERVER["REQUEST_METHOD"] == "GET"){?>
+        <nav class="mt-4 mb-4 " aria-label="Page navigation example">
+            <ul class=" flex-wrap pagination justify-content-center">
+                <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+                <?php for ($i=1; $i <= $pagesNum; $i++) { ?>
+            <li class="page-item"><a class="page-link" href="<?php echo "user.php?pageId=".$i?>"><?php echo $i ;?></a></li>
+            <?php }?>
+            <li class="page-item"><a class="page-link" href="#">Next</a></li>
+            </ul>
+        </nav>
+        <?php  } ?>
   </div>
-
-
-
-
-    <footer>
-        hhhh
-    </footer>
 </body>
 </html>
