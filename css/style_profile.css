@@ -1,0 +1,32 @@
+.file-input,
+.file-inputs {
+  width: 100%;
+  height: 200px;
+  background-color: aliceblue;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  position: relative;
+  overflow: hidden;
+}
+.file-input input[type="file"],
+.file-inputs input[type="file"] {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+}
+#previewImage,
+#previewImage1,
+#previewImage2 ,
+#previewImage3 ,
+#previewImage4  {
+  width: 100%;
+  height: 100%;
+}
+.previewImage{
+  display: none;
+}
