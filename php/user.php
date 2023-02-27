@@ -7,12 +7,13 @@ require 'connect.php';
 require 'navbar.php';
 
 
-
-
+// checks if the form with the name "searchbtn" has been submitted 
 if (isset($_POST['searchbtn'])) {
-    // retrieve the form inputs using $_POST and store them in the $queryParams array
+    // retrieve the form inputs using $_POST and store them in the $queryParams array   if it's not empty
     if (!empty($_POST['city'])) {
-        $queryParams[] = "City = '{$_POST['city']}'";
+
+        $city = strtolower($_POST['city']); // capitalize the first letter of each word
+        $queryParams[] = "City = '{$city}'";
     }
 
     if (!empty($_POST['type'])) {
@@ -31,27 +32,15 @@ if (isset($_POST['searchbtn'])) {
         $queryParams[] = "Price >= {$_POST['min_Price']}";
     }
 
-    if (!empty($_POST['Date'])) {
-        $queryParams[] = "PublishDate = '{$_POST['Date']}'";
-    }
-
-    // construct the SQL query
-
-    // $sql = "SELECT * FROM annonce  WHERE  " . implode(" AND ", $queryParams);
-    $sql = "SELECT annonce.*, img.image_path AS primary_image_path
-        FROM annonce
-        LEFT JOIN (
-            SELECT ad_id, MIN(image_path) AS image_path
-            FROM image_d_annonce
-            WHERE primary_or_secondary = 'primary'
-            GROUP BY ad_id
-        ) img ON annonce.ad_id = img.ad_id
-        WHERE " . implode(" AND ", $queryParams);
 
 
-    // execute the query and display the results
-    $result = $conn->query($sql);
-    $FilterResult = $result->fetchAll(PDO::FETCH_ASSOC);
+
+    $filter = ("SELECT * FROM annonce NATURAL JOIN image_d_annonce where primary_or_secondary = 'primary' AND " . implode(" AND ", $queryParams));
+    echo $filter;
+    $filter = $conn->query($filter);
+
+
+
 } else {
 
     $pageId;
@@ -63,153 +52,369 @@ if (isset($_POST['searchbtn'])) {
     }
 
     $endIndex = $pageId * 8;
-    $StartIndex  = $endIndex - 8;
+    $StartIndex = $endIndex - 8;
 
 
-    // $announcesDATA = $conn->query("SELECT * FROM annonce Limit 8 OFFSET $StartIndex")->fetchAll(PDO::FETCH_ASSOC);
-    $announcesDATA = $conn->query("SELECT a.*, i.image_path AS primary_image_path
-FROM annonce a LEFT JOIN image_d_annonce i ON a.ad_id = i.ad_id AND i.primary_or_secondary = 'primary' LIMIT 8 OFFSET $StartIndex")->fetchAll(PDO::FETCH_ASSOC);
+    $announcesDATA = $conn->query("SELECT  a.*, i.image_path AS primary_image_path FROM annonce a LEFT JOIN image_d_annonce i ON a.ad_id = i.ad_id AND i.primary_or_secondary = 'primary' LIMIT 8 OFFSET $StartIndex")->fetchAll(PDO::FETCH_ASSOC);
 
-$primaryImagePaths = array();
-foreach ($announcesDATA as $val) {
-    $primaryImagePaths[$val['ad_id']] = $val['primary_image_path'];
-}
-
+    $primaryImagePaths = array();
+    foreach ($announcesDATA as $val) {
+        $primaryImagePaths[$val['ad_id']] = $val['primary_image_path'];
+    }
 
     $sql = 'SELECT * FROM annonce';
 
     // execute a query
-    $annoncesLength = $conn->query($sql)->rowCount();
 
-    // echo $annoncesLength[0];
+    $annoncesLength = $conn->query($sql)->rowCount();
 
     $pagesNum = 0;
 
     if (($annoncesLength % 8) == 0) {
 
         $pagesNum = $annoncesLength / 8;
+
     } else {
+
         $pagesNum = ceil($annoncesLength / 8);
+
     }
+
 }
+$city = "SELECT DISTINCT City FROM annonce";
 
+$citys = $conn->query($city);
+
+if (isset($_POST['date_sort'])) {
+    $sort_field = 'publication_date';
+    $sort_order = $_POST['date_order'];
+  
+    // SQL query to select cards and sort by specified field and order
+    $sql = "SELECT * FROM annonce NATURAL JOIN `image_d_annonce` where primary_or_secondary = 'primary' ORDER BY $sort_field $sort_order LIMIT 6 OFFSET $StartIndex";
+    $stmt = $conn->query($sql);
+    // Fetch the sorted cards
+    $sorted = $stmt->fetchAll(PDO::FETCH_ASSOC);
+  
+    $page = 'SELECT * FROM annonce';
+  
+    $result = $conn->query($sql);
+  
+    $annoncesLength = $conn->query($page)->rowCount();
+  
+    $pagesNum = 0;
+  
+    if (($annoncesLength % 8) == 0) {
+  
+      $pagesNum = $annoncesLength / 8;
+    } else {
+      $pagesNum = ceil($annoncesLength / 8);
+    }
+  }
+  if (isset($_POST['price_sort'])) {
+    $sort_field = 'price';
+    $sort_order = $_POST['price_order'];
+  
+    // SQL query to select cards and sort by specified field and order
+    $sql = "SELECT * FROM annonce NATURAL JOIN `image_d_annonce` where primary_or_secondary = 'primary' ORDER BY $sort_field $sort_order LIMIT 6 OFFSET $StartIndex";
+    $stmt = $conn->query($sql);
+    // Fetch the sorted cards
+    $sorted = $stmt->fetchAll(PDO::FETCH_ASSOC);
+  
+    $page = 'SELECT * FROM annonce';
+  
+    $result = $conn->query($sql);
+  
+    $annoncesLength = $conn->query($page)->rowCount();
+  
+    $pagesNum = 0;
+  
+    if (($annoncesLength % 8) == 0) {
+  
+      $pagesNum = $annoncesLength / 8;
+    } else {
+      $pagesNum = ceil($annoncesLength / 8);
+    }
+  }
 ?>
 
+<!-- ========== trier  by city and type and categories and price ==========-->
 
 
 
-<!-- ========== div serch by city and type and categories and price ==========-->
-<div class=" vh-100 w-100 bg-img">
-    <div style="padding-top: 10em;" class="d-flex justify-content-center align-items-center">
-        <img src="../img/logoSite.png" class="d-block" alt="MDB Logo" loading="lazy" />
+
+
+
+<body>
+    <header>
+        <div class=" vh-100 w-100 bg-img">
+            <div style="padding-top: 7em;" class="d-flex justify-content-center   align-items-center">
+                <img src="../img/logoSite.png"  alt="logo" loading="lazy" />
+            </div>
+
+            <div class=" container  ">
+                <form action="<?php echo $_SERVER['PHP_SELF'] ?>" method="post" class="w-100 d-flex justify-content-center  gep-2 mt-5">
+                    <label for="" class="d-flex gap-1">
+                        <select class="form-select form-select-sm" aria-label=" example" name="city">
+                            <option disabled selected>choose City </option>
+                            <?php
+                            while ($data = $citys->fetch(PDO::FETCH_ASSOC)) {
+                                foreach ($data as $city) {
+                                    echo "<option value='$city'>$city</option>";
+                                }
+                            }
+                            ?>
+                        </select>
+                    </label>
+                    <label  class="d-flex ml-1 gap-2">
+                        <select class="form-select form-select-sm" aria-label=" example" name="category">">
+                            <option disabled selected>chose category</option>
+                            <option value="apartment">Apartment</option>
+                            <option value="house">House</option>
+                            <option value="villa">Villa</option>
+                            <option value="office">Office</option>
+                            <option value="land">land</option>
+                        </select>
+                    </label>
+                    <label class="d-flex ml-1 gap-2">
+                        <select class="form-select form-select-sm" aria-label=" example" name="type">
+                            <option disabled selected>choose type </option>
+                            <option value="Rent">Rent</option>
+                            <option value="Sale">Sale</option>
+                        </select>
+                    </label>
+                    <label class="d-flex ml-1 gap-2 " id="max-price">
+                        <input name="max_Price" type="number"  placeholder="Max Price" />
+                    </label>
+                    <label class="d-flex ml-1 gap-2 " id="min-Price">
+                        <input name="min_Price" type="number"  placeholder="Min Price" />
+                    </label>
+                    <button name="searchbtn" type="submit" class="btn btn-warning ml-4">Search</button>
+                </form>
+            </div>
+
+        </div>
+    </header>
+    <!-- ================================================== cards affiche ================================================================== -->
+    <main>
+    <div class=" d-flex gap-2">
+    <form action="<?php echo $_SERVER['PHP_SELF'] ?>" method="POST">
+      <input id="date_order" name="date_order" type="hidden" value="ASC">
+      <button id="date_sort" class="btn btn-light" type="submit" name="date_sort">
+        Sort by date <span id="date"><i class="fa-solid fa-sort-up"></i></span>
+      </button>
+    </form>
+    <form action="<?php echo $_SERVER['PHP_SELF'] ?>" method="POST">
+      <input id="price_order" name="price_order" type="hidden" value="ASC">
+      <button id="price_sort" class="btn btn-light" type="submit" name="price_sort">
+        Sort by price <span id="price"><i class="fa-solid fa-sort-up"></i></span>
+      </button>
+    </form>
+  </div>
+
+        <section class="container ">
+            <h2 class="d-flex justify-content-center mb-5 mt-5">OUR LAST ANNOUCEMENT</h2>
+            <div class="cards">
+                <?php
+                if ($_SERVER["REQUEST_METHOD"] == "GET") { //check if the method is get
+                    foreach ($announcesDATA as $key => $val) { //loops in the table of annonce and display the in cards
+                        ?>
+                        <div class="card ">
+                            <div class="content">
+                                <a href="details.php?ad_id=<?php echo $val['ad_id']; ?>">
+                                    <div class="content-overlay">
+
+                                    </div>
+                                    <img class="content-image" src="..<?php echo $primaryImagePaths[$val['ad_id']]; ?>">
+                                    <div class="content-details fadeIn-bottom">
+                                        <h3 class="content-title">
+                                            <?php echo $val['title']; ?>
+                                        </h3>
+                                        <p class="content-text">
+                                            <?php echo $val['category']; ?>
+                                        </p>
+                                        <p class="content-text">
+                                            <?php echo $val['type']; ?>
+                                        </p>
+                                        <p class="content-text">
+                                            <?php echo $val['price']; ?>
+                                        </p>
+                                        <p class="content-text">
+                                            <?php echo $val['publication_date']; ?>
+                                        </p>
+                                        <p class="content-text"><i class="fa fa-map-marker"></i>
+                                            <?php echo $val['Contry']; ?>,
+                                            <?php echo $val['City']; ?>
+                                        </p>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                        <?php
+                    }
+                } else if (isset($_POST['searchbtn'])) { //check if the method is post
+                
+                    while ($val = $filter->fetch(PDO::FETCH_ASSOC)) {
+
+
+                        ?>
+                            <div class="card ">
+                                <div class="content">
+                                    <a href="details.php?ad_id=<?php echo $val['ad_id']; ?>">
+                                        <div class="content-overlay ">
+
+                                        </div>
+                                        <img class="content-image" src="..<?php echo $val['image_path']; ?>">
+
+                                        <div class="content-details fadeIn-bottom">
+                                            <h3 class="content-title ">
+                                            <?php echo $val['title']; ?>
+                                            </h3>
+                                            <p class="content-text"><i class="fa fa-map-marker"></i>
+                                            <?php echo $val['City'] ?>
+                                            </p>
+                                            <p>
+                                            <?php echo $val['type'] ?>
+                                            </p>
+                                            <p>
+                                            <?php echo $val['price'] ?> DH
+                                            </p>
+                                            <p>
+                                            <?php echo $val['category'] ?>
+                                            </p>
+                                       
+                                            <p class="content-text">
+                                            <?php echo $val['publication_date']; ?>
+                                        </p>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        <?php
+                    }
+                } elseif (isset($_POST['date_sort'])) {
+                    for ($i = 0; $i < count($sorted); $i++) {
+                        ?>
+                            <div class="card ">
+                                <div class="content">
+                                    <a href="details.php?ad_id=<?php echo $sorted[$i]['ad_id']; ?>">
+                                        <div class="content-overlay ">
+
+                                        </div>
+                                        <img class="content-image" src="..<?php echo $sorted[$i]['image_path']; ?>">
+
+                                        <div class="content-details fadeIn-bottom">
+                                            <h3 class="content-title ">
+                                            <?php echo $sorted[$i]['title']; ?>
+                                            </h3>
+                                            <p class="content-text"><i class="fa fa-map-marker"></i>
+                                            <?php echo $sorted[$i]['City'] ?>
+                                            </p>
+                                            <p>
+                                            <?php echo $sorted[$i]['type'] ?>
+                                            </p>
+                                            <p>
+                                            <?php echo $sorted[$i]['price'] ?> DH
+                                            </p>
+                                            <p>
+                                            <?php echo $sorted[$i]['category'] ?>
+                                            </p>
+                                            <p class="content-text">
+                                            <?php echo  $sorted[$i]['publication_date']; ?>
+                                        </p>
+
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        <?php
+                    }
+                } elseif (isset($_POST['price_sort'])) {
+                    for ($i = 0; $i < count($sorted); $i++) {
+                        ?>
+                                                       <div class="card ">
+                                <div class="content">
+                                    <a href="details.php?ad_id=<?php echo $sorted[$i]['ad_id']; ?>">
+                                        <div class="content-overlay ">
+
+                                        </div>
+                                        <img class="content-image" src="..<?php echo $sorted[$i]['image_path']; ?>">
+
+                                        <div class="content-details fadeIn-bottom">
+                                            <h3 class="content-title ">
+                                            <?php echo $sorted[$i]['title']; ?>
+                                            </h3>
+                                            <p class="content-text"><i class="fa fa-map-marker"></i>
+                                            <?php echo $sorted[$i]['City'] ?>
+                                            </p>
+                                            <p>
+                                            <?php echo $sorted[$i]['type'] ?>
+                                            </p>
+                                            <p>
+                                            <?php echo $sorted[$i]['price'] ?> DH
+                                            </p>
+                                            <p>
+                                            <?php echo $sorted[$i]['category'] ?>
+                                            </p>
+                                            <p class="content-text">
+                                            <?php echo  $sorted[$i]['publication_date']; ?>
+                                        </p>
+
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        <?php
+                    }
+                }
+                ;
+                ?>
+            </div>
+        </section>
+    </main>
+    <?php if ($_SERVER["REQUEST_METHOD"] == "GET") { ?>
+        <nav class="mt-4 mb-4 " aria-label="Page navigation example">
+            <ul class=" flex-wrap pagination justify-content-center">
+                <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+                <?php for ($i = 1; $i <= $pagesNum; $i++) { ?>
+                    <li class="page-item"><a class="page-link" href="<?php echo "user.php?pageId=" . $i ?>"><?php echo $i; ?></a></li>
+                <?php } ?>
+                <li class="page-item"><a class="page-link" href="#">Next</a></li>
+            </ul>
+        </nav>
+    <?php }
+    ?>
     </div>
 
-    <div class="form-filter d-flex ">
-        <form action="<?php echo $_SERVER['PHP_SELF'] ?>" method="post" class="w-100 d-flex justify-content-center align-items-center flex-wrap gap-1">
-            <label for="" class="d-flex gap-1">
-                <select class="form-select form-select-sm" aria-label=".form-select-sm example" name="city">
-                    <option disabled selected>/-- choose City --/</option>
-                    <option value="Tanger">Tanger</option>
-                    <option value="Rabat">Rabat</option>
-                    <option value="Marakech">Marakech</option>
-                    <option value="Fes">Fes</option>
-                </select>
-            </label>
-            <label for="" class="d-flex ml-1 gap-1">
-                <select class="form-select form-select-sm" aria-label=".form-select-sm example" name="type">
-                    <option disabled selected>/-- choose Type --/</option>
-                    <option value="apartment">apartment</option>
-                    <option value="House">House</option>
-                    <option value="Villa">Villa</option>
-                    <option value="desk">desk</option>
-                    <option value="ground">ground</option>
-                </select>
-            </label>
-            <label class="d-flex ml-1 gap-1">
-                <select class="form-select form-select-sm" aria-label=".form-select-sm example" name="category">
-                    <option disabled selected>/-- choose Category --/</option>
-                    <option value="Rent">Rent</option>
-                    <option value="Sale">Sale</option>
-                </select>
-            </label>
+    <script>
+  /**
+   * variables to use
+   */
+  let date_sort = document.getElementById('date_sort') // the date sort button
+  let price_sort = document.getElementById('price_sort') // the price sort button
+  let price = document.getElementById('price') // the price icone
+  let date = document.getElementById('date') // the date icone
+  let price_order = document.getElementById('price_order') // price sort order
+  let date_order = document.getElementById('date_order') // date sort order
+  date_sort.addEventListener('click', function () {
+    if (date_order.value == "ASC") {
+      date_order.value = "DESC"
+      date.innerHTML = `<i class="fa-solid fa-sort-up"></i>`
+    } else {
+      date_order.value = "ASC"
+      date.innerHTML = `<i class="fa-solid fa-sort-down"></i>`
+    }
+  })
+  price_sort.addEventListener('click', function () {
+    if (price_order.value == "ASC") {
+      price.innerHTML = `<i class="fa-solid fa-sort-up"></i>`
+      price_order.value = "DESC"
+    } else {
+      price_order.value = "ASC"
+      price.innerHTML = `<i class="fa-solid fa-sort-down"></i>`
+    }
+  })
+</script>
 
-            <label class="d-flex ml-1 gap-1" id="max-price">
-                <input name="max_Price" type="number" min="0" placeholder="Max Price" />
-            </label>
-            <label class="d-flex ml-1 gap-1" id="min-Price">
-                <input name="min_Price" type="number" min="0" placeholder="Min Price" />
-            </label>
-            <label class="d-flex ml-1 gap-1" id="min-Price">
-                <input name="Date" type="date" placeholder="Date" />
-            </label>
-            <button name="searchbtn" type="submit" class="btn btn-warning ml-4">Search</button>
-        </form>
-    </div>
-
-</div>
-</header>
-<!-- ================================================== cards affiche ================================================================== -->
-<section class="container">
-    <h2>Listings</h2>
-    <div class="cards">
-        <?php
-        if ($_SERVER["REQUEST_METHOD"] == "GET") { //check if the method is get
-            foreach ($announcesDATA as $key => $val) { //loops in the table of annonce and display the in cards
-        ?>
-                <div class="card">
-                    <div class="content">
-                        <a href="details.php?ad_id=<?php echo $val['ad_id']; ?>">
-                            <div class="content-overlay">
-                            </div>
-                            <img class="content-image" src="..<?php echo $primaryImagePaths[$val['ad_id']]; ?>">
-                            <div class="content-details fadeIn-bottom">
-                                <h3 class="content-title"><?php echo $val['title']; ?></h3>
-
-                                <p class="content-text"><i class="fa fa-map-marker"></i> <?php echo $val['Contry']; ?>,<?php echo $val['City']; ?></p>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-            <?php
-            }
-        } else if ($_SERVER["REQUEST_METHOD"] == "POST") { //check if the method is post
-            foreach ($FilterResult as $key => $val) {
-                echo "<pre>";
-                var_dump($val);
-                echo "</pre>";
-            ?>
-                <div class="card    ">
-                    <div class="content">
-                        <a href="details.php?ad_id=<?php echo $val['ad_id']; ?>">
-                            <div class="content-overlay">
-                            </div>
-                            <img class="content-image" src="../img/img.jpg">
-                            <div class="content-details fadeIn-bottom">
-                                <h3 class="content-title"><?php echo $val['title']; ?></h3>
-                                <p class="content-text"><i class="fa fa-map-marker"></i> Russia</p>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-        <?php
-            }
-        }
-        ?>
-    </div>
-</section>
-<?php if ($_SERVER["REQUEST_METHOD"] == "GET") { ?>
-    <nav class="mt-4 mb-4 " aria-label="Page navigation example">
-        <ul class=" flex-wrap pagination justify-content-center">
-            <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-            <?php for ($i = 1; $i <= $pagesNum; $i++) { ?>
-                <li class="page-item"><a class="page-link" href="<?php echo "user.php?pageId=" . $i ?>"><?php echo $i; ?></a></li>
-            <?php } ?>
-            <li class="page-item"><a class="page-link" href="#">Next</a></li>
-        </ul>
-    </nav>
-<?php  } 
-?>
-</div>
 </body>
 
 </html>

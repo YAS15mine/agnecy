@@ -27,9 +27,9 @@ SET
 ;
 
 --
--- Base de données : `real_estate_agency`
+-- Base de données : `test`
 --
--- --------------------------------------------------------
+--
 --
 -- Structure de la table `annonce`
 --
@@ -119,7 +119,7 @@ VALUES
   ),
   (
     6,
-    'Yassine yamama office',
+    'Yassine office',
     6000,
     '2023-02-21',
     '2023-02-21',
@@ -145,7 +145,7 @@ VALUES
   ),
   (
     8,
-    'al khire appartments',
+    'Ahlan appartments',
     2400000,
     '2023-02-21',
     '2023-02-21',
@@ -266,32 +266,32 @@ VALUES
   (3, 'secondary', '/images/1_secondary2.jpg', 2),
   (4, 'secondary', '/images/1_secondary3.jpg', 2),
   (5, 'secondary', '/images/1_secondary4.jpg', 2),
-  (6, 'primary', '/images/1_primary.jpg', 3),
+  (6, 'primary', '/images/2_primary.jpg', 3),
   (7, 'secondary', '/images/1_secondary1.jpg', 3),
   (8, 'secondary', '/images/1_secondary2.jpg', 3),
   (9, 'secondary', '/images/1_secondary3.jpg', 3),
   (10, 'secondary', '/images/1_secondary4.jpg', 3),
-  (11, 'primary', '/images/1_primary.jpg', 4),
+  (11, 'primary', '/images/3_primary.jpg', 4),
   (12, 'secondary', '/images/1_secondary1.jpg', 4),
   (13, 'secondary', '/images/1_secondary2.jpg', 4),
   (14, 'secondary', '/images/1_secondary3.jpg', 4),
   (15, 'secondary', '/images/1_secondary4.jpg', 4),
-  (16, 'primary', '/images/1_primary.jpg', 5),
+  (16, 'primary', '/images/4_primary.jpg', 5),
   (17, 'secondary', '/images/1_secondary1.jpg', 5),
   (18, 'secondary', '/images/1_secondary2.jpg', 5),
   (19, 'secondary', '/images/1_secondary3.jpg', 5),
   (20, 'secondary', '/images/1_secondary4.jpg', 5),
-  (21, 'primary', '/images/1_primary.jpg', 6),
+  (21, 'primary', '/images/5_primary.jpg', 6),
   (22, 'secondary', '/images/1_secondary1.jpg', 6),
   (23, 'secondary', '/images/1_secondary2.jpg', 6),
   (24, 'secondary', '/images/1_secondary3.jpg', 6),
   (25, 'secondary', '/images/1_secondary4.jpg', 6),
-  (26, 'primary', '/images/1_primary.jpg', 7),
+  (26, 'primary', '/images/6_primary.jpg', 7),
   (27, 'secondary', '/images/1_secondary1.jpg', 7),
   (28, 'secondary', '/images/1_secondary2.jpg', 7),
   (29, 'secondary', '/images/1_secondary3.jpg', 7),
   (30, 'secondary', '/images/1_secondary4.jpg', 7),
-  (31, 'primary', '/images/1_primary.jpg', 8),
+  (31, 'primary', '/images/7_primary.jpg', 8),
   (32, 'secondary', '/images/1_secondary1.jpg', 8),
   (33, 'secondary', '/images/1_secondary2.jpg', 8),
   (34, 'secondary', '/images/1_secondary3.jpg', 8),

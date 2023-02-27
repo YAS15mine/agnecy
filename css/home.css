@@ -3,7 +3,8 @@
   font-family: "Changa", sans-serif;
   padding: 0;
   margin: 0;
-  top: 0;
+  
+  font-size: medium;
 }
 
 .bg-img {
@@ -12,7 +13,7 @@
 }
 
 #nav {
-  background-color: #2d2d2d82;
+  background-color: #2d2d2d54;
 }
 
 .sign-in:hover {
@@ -23,23 +24,15 @@
 }
 .form-filter {
   background-color: rgba(0, 0, 0, 0.644);
-  width: 75%;
-  height: 10%;
-  padding-left: 1rem;
-  padding-right: 1rem;
-  border-radius: 4px;
-  margin-left: 7rem;
-  display: block;
-  margin: 8rem auto;
+ 
+  
 }
 
 input ,select, option {
   border-radius: 2px;
   border: none;
   outline: none;
-  padding: 3px;
-  width: 12rem;
-  height: 2.4rem;
+gap :3%;
 }
 
 label span {
@@ -48,23 +41,18 @@ label span {
   color: #fff;
 }
 
-body {
-  background: #f9f9f9;
-  font-size: 16px;
-  font-family: "changa", sans-serif;
-}
+.cards{ 
 
-.cards {
   display: flex;
   flex-direction: row;
   justify-content: center;
   flex-wrap: wrap;
-}
+  gap: 5%;}
 
 .title {
-  color: #1a1a1a;
+  color: #1a1a1ac5;
   text-align: center;
-  margin-bottom: 10px;
+  margin-bottom: 10px
 }
 .content {
   position: relative;
@@ -90,13 +78,10 @@ body {
 .content:hover .content-overlay {
   opacity: 1;
 }
-.content-image {
+ .content-image {
   width: 100%;
-}
-img {
-  box-shadow: 1px 1px 5px 1px rgba(0, 0, 0, 0.1);
-  border-radius: 5px;
-}
+} 
+
 .content-details {
   position: absolute;
   text-align: center;
@@ -120,6 +105,7 @@ img {
 }
 .card{
   margin-bottom: 2rem;
+   
 }
 .content-details h3 {
   color: #fff;
