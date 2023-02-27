@@ -90,7 +90,7 @@ if (isset($_POST['date_sort'])) {
     $sort_order = $_POST['date_order'];
   
     // SQL query to select cards and sort by specified field and order
-    $sql = "SELECT * FROM annonce NATURAL JOIN `image_d_annonce` where primary_or_secondary = 'primary' ORDER BY $sort_field $sort_order LIMIT 6 OFFSET $StartIndex";
+    $sql = "SELECT * FROM annonce NATURAL JOIN `image_d_annonce` where primary_or_secondary = 'primary' ORDER BY $sort_field $sort_order LIMIT 8 OFFSET $StartIndex";
     $stmt = $conn->query($sql);
     // Fetch the sorted cards
     $sorted = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -115,7 +115,7 @@ if (isset($_POST['date_sort'])) {
     $sort_order = $_POST['price_order'];
   
     // SQL query to select cards and sort by specified field and order
-    $sql = "SELECT * FROM annonce NATURAL JOIN `image_d_annonce` where primary_or_secondary = 'primary' ORDER BY $sort_field $sort_order LIMIT 6 OFFSET $StartIndex";
+    $sql = "SELECT * FROM annonce NATURAL JOIN `image_d_annonce` where primary_or_secondary = 'primary' ORDER BY $sort_field $sort_order LIMIT 8 OFFSET $StartIndex";
     $stmt = $conn->query($sql);
     // Fetch the sorted cards
     $sorted = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -371,7 +371,7 @@ if (isset($_POST['date_sort'])) {
             </div>
         </section>
     </main>
-    <?php if ($_SERVER["REQUEST_METHOD"] == "GET") { ?>
+     <?php if ($_SERVER["REQUEST_METHOD"] == "GET" || isset($_POST['date_sort']) || isset($_POST['price_sort'])) { ?>
         <nav class="mt-4 mb-4 " aria-label="Page navigation example">
             <ul class=" flex-wrap pagination justify-content-center">
                 <li class="page-item"><a class="page-link" href="#">Previous</a></li>
